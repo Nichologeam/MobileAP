@@ -8,3 +8,8 @@ This client has only been tested to work when connecting to servers hosted on th
 - Activate Deathlink on any Manual, even ones that don't have it enabled in the official client.
 - Font Size adjustment, out of logic sending confirmation, Deathlink vibration, and more options.
 - Lock Screen Bypassing on Android, which keeps the app open even after the phone locks automatically after the screen goes to sleep. Can be disabled in the app options.
+
+# Screenshots
+<img width="240" height="533" alt="The Text Client Connection Screen" src="https://github.com/user-attachments/assets/590b1586-f5ce-41f7-9cf3-5a06b96d2e0d" />
+<img width="240" height="533" alt="The Manual Client Locations Tab" src="https://github.com/user-attachments/assets/ffd618aa-5a3b-43cf-b7d3-0cf773ca00a3" />
+<img width="240" height="533" alt="The Manual Client Version of the Message Feed" src="https://github.com/user-attachments/assets/6b5770d4-38f0-4aab-a426-a9c83f94d596" />
