@@ -16,7 +16,7 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
-        versionNumberDisplay.text = $"MobileAP V0.0.1 ({SystemInfo.operatingSystem})";
+        versionNumberDisplay.text = $"MobileAP V0.0.2 ({SystemInfo.operatingSystem})";
         if (!PlayerPrefs.HasKey("bypassLock")) // there aren't any saved settings
         {
             PlayerPrefs.SetInt("autoscroll", 1);
