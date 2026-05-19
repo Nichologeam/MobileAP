@@ -59,11 +59,9 @@ public class TextClient : MonoBehaviour
             connectButton.interactable = true;
             return;
         }
-        if (address.text.ToLower() == "localhost")
+        if (!address.text.StartsWith("archipelago.gg"))
         {
-            errorMessage.text = "Due to security restrictions, unsecure websockets are unsupported.";
-            connectButton.interactable = true;
-            return;
+            errorMessage.text = "Due to security restrictions, unsecure websockets may not work on certain devices.<br>Try hosting on the archipelago.gg website or a rehost if connection fails.";
         }
         StartCoroutine(ConnectRoutine());
     }
@@ -132,13 +130,14 @@ public class TextClient : MonoBehaviour
     }
     private IEnumerator ConnectRoutine()
     {
+        yield return null; // ui update
         try
         {
-            session = ArchipelagoSessionFactory.CreateSession($"wss://{address.text}");
+            session = ArchipelagoSessionFactory.CreateSession(address.text);
             session.Items.ItemReceived += (item) => UpdateItemList(item);
             session.MessageLog.OnMessageReceived += message => ProcessMessage(message);
             var result = session.TryConnectAndLogin
-                ("", slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,6), tags: new string[] {"TextOnly","Mobile"}, password: password.text);
+                ("", slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,7), tags: new string[] {"TextOnly","Mobile"}, password: password.text);
             connectButton.interactable = true;
             if (result is LoginFailure)
             {
