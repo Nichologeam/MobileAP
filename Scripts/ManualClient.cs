@@ -165,6 +165,11 @@ public class ManualClient : MonoBehaviour
     }
     private IEnumerator ProcessAPManual(string path, Action<string> callback)
     {
+        if (path.EndsWith(".apworld"))
+        {
+            callback?.Invoke($"This is an APWorld, not an APManual!<br>Download the patch file for your slot on the webhost,<br>or extract the file from the zip inside the Archipelago output folder!");
+            yield break;
+        }
         Debug.LogWarning("----- STARTING APMANUAL EXTRACTION -----");
         customHooks = false;
         APWorldPath = path;
@@ -541,9 +546,10 @@ public class ManualClient : MonoBehaviour
     }
     private IEnumerator ConnectRoutine()
     {
+        yield return null; // ui update
         try
         {
-            session = ArchipelagoSessionFactory.CreateSession($"wss://{address.text}");
+            session = ArchipelagoSessionFactory.CreateSession(address.text);
             session.Items.ItemReceived += (item) => ThreadManager.RunOnMainThread(() => UpdateItemList(item));
             session.MessageLog.OnMessageReceived += message => ProcessMessage(message);
             var result = session.TryConnectAndLogin
