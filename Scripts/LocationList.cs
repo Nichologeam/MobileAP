@@ -32,9 +32,32 @@ public class LocationList : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        if (ManualClient.locationCategories.TryGetValue("No Category", out var noCategory) && noCategory.Count > 0)
+        {
+            string categoryName = "No Category";
+            CategoryHeader header = Instantiate(headerPrefab, contentRoot); // make the header object
+            header.Initialize(categoryName); // set it up correctly
+            headers[categoryName] = header; // put it in the dictionary
+            entriesByCategory[categoryName] = new List<LocationEntry>(); // create entries list
+            foreach (var loc in noCategory) // for every location inside this category...
+            {
+                if (ManualClient.session.Locations.AllLocationsChecked.Contains(loc.id))
+                {
+                    continue; // we already collected this location in a previous session
+                }
+                LocationEntry entry = Instantiate(locationPrefab, header.contentRoot.transform); // make the location
+                entry.Initialize(loc); // set it up correctly
+                locationsById[loc.id] = entry; // put it in the dictionary
+                entriesByCategory[categoryName].Add(entry); // add to the entries list
+            }
+        }
         foreach (var pair in ManualClient.locationCategories) // for each category that exists...
         {
             string categoryName = pair.Key; // get its name
+            if (categoryName == "No Category")
+            {
+                continue; // already processed
+            }
             CategoryHeader header = Instantiate(headerPrefab, contentRoot); // make the header object
             header.Initialize(categoryName); // set it up correctly
             headers[categoryName] = header; // put it in the dictionary
