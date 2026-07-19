@@ -65,7 +65,7 @@ public class ManualClient : MonoBehaviour
     {
         public string name;
         public List<string> category;
-        public int id;
+        public long id;
         public bool progression;
         public bool useful;
         public bool trap;
@@ -92,7 +92,7 @@ public class ManualClient : MonoBehaviour
         public bool optionRequirement; // true if this is a YamlEnabled option
         public string optionName;      // the string, e.g. "{YamlEnabled(Option)}"
     }
-    Dictionary<int, ItemData> itemsById = new();
+    Dictionary<long, ItemData> itemsById = new();
     Dictionary<string, ItemData> itemsByName = new();
     SortedDictionary<string, List<ItemData>> itemCategories = new();
     Dictionary<long, LocationData> locationsById = new();

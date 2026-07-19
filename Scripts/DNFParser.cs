@@ -55,7 +55,6 @@ public class DNFParser : MonoBehaviour
         List<string> result = new();
         int paren = 0;
         int lastSplit = 0;
-        string upperOp = op.ToUpper();
 
         for (int i = 0; i < input.Length; i++)
         {
@@ -67,12 +66,12 @@ public class DNFParser : MonoBehaviour
                 if (paren == 0)
                 {
                     // check if operator matches
-                    if (input.Substring(i).StartsWith(upperOp))
+                    if (input.Substring(i).StartsWith(op, System.StringComparison.OrdinalIgnoreCase)) // works with both upper and lowecase
                     {
                         string part = input.Substring(lastSplit, i - lastSplit);
                         if (!string.IsNullOrWhiteSpace(part))
                             result.Add(part.Trim());
-                        i += upperOp.Length - 1;
+                        i += op.Length - 1;
                         lastSplit = i + 1;
                     }
                 }
