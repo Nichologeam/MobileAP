@@ -553,7 +553,7 @@ public class ManualClient : MonoBehaviour
             session.Items.ItemReceived += (item) => ThreadManager.RunOnMainThread(() => UpdateItemList(item));
             session.MessageLog.OnMessageReceived += message => ProcessMessage(message);
             var result = session.TryConnectAndLogin
-                (manualGameID, slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,7), tags: new string[] {"MobileAP"}, requestSlotData: true, password: password.text);
+                (manualGameID, slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,8), tags: new string[] {"MobileAP"}, requestSlotData: true, password: password.text);
             connectButton.interactable = true;
             if (result is LoginFailure)
             {

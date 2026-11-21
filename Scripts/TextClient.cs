@@ -137,7 +137,7 @@ public class TextClient : MonoBehaviour
             session.Items.ItemReceived += (item) => UpdateItemList(item);
             session.MessageLog.OnMessageReceived += message => ProcessMessage(message);
             var result = session.TryConnectAndLogin
-                ("", slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,7), tags: new string[] {"TextOnly","Mobile"}, password: password.text);
+                ("", slot.text, ItemsHandlingFlags.AllItems, new Version(0,6,8), tags: new string[] {"TextOnly","MobileAP"}, password: password.text);
             connectButton.interactable = true;
             if (result is LoginFailure)
             {

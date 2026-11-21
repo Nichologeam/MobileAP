@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,14 +67,19 @@ public class DNFParser : MonoBehaviour
                 if (paren == 0)
                 {
                     // check if operator matches
-                    if (input.Substring(i).StartsWith(op, System.StringComparison.OrdinalIgnoreCase)) // works with both upper and lowecase
-                    {
-                        string part = input.Substring(lastSplit, i - lastSplit);
-                        if (!string.IsNullOrWhiteSpace(part))
-                            result.Add(part.Trim());
-                        i += op.Length - 1;
-                        lastSplit = i + 1;
-                    }
+                    if (i + op.Length <= input.Length &&
+                    input.Substring(i, op.Length).Equals(op, StringComparison.OrdinalIgnoreCase) &&
+                    (i == 0 || char.IsWhiteSpace(input[i - 1])) &&
+                    (i + op.Length == input.Length || char.IsWhiteSpace(input[i + op.Length])))
+                {
+                    string part = input.Substring(lastSplit, i - lastSplit);
+
+                    if (!string.IsNullOrWhiteSpace(part))
+                        result.Add(part.Trim());
+
+                    i += op.Length - 1;
+                    lastSplit = i + 1;
+                }
                 }
             }
         }
